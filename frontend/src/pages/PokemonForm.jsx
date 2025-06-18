@@ -2,30 +2,36 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function PokemonForm() {
-  const [name, setName] = useState('');
-  const [type, setType] = useState('');
-  const [types, setTypes] = useState([]);
+  const [codigo, setCodigo] = useState('');
+  const [nome, setNome] = useState('');
+  const [tipo_primario, setTipoPrimario] = useState('');
+  const [tipo_secundario, setTipoSecundario] = useState('');
+  const [tipos, setTipos] = useState([]);
 
   useEffect(() => {
-    // Carrega os tipos da API
-    axios.get('http://localhost:8000/api/types/')
-      .then(res => setTypes(res.data))
-      .catch(err => console.error(err));
+    axios.get('http://localhost:8000/api/tipos/')
+      .then(res => setTipos(res.data))
+      .catch(err => console.error('Erro ao buscar tipos:', err));
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newPokemon = {
-      name,
-      type
+    const novoPokemon = {
+      codigo,
+      nome,
+      tipo_primario: tipo_primario,
+      tipo_secundario: tipo_secundario || null, // envia null se vazio
     };
 
-    axios.post('http://localhost:8000/api/pokemons/', newPokemon)
+
+    axios.post('http://localhost:8000/api/pokemons/', novoPokemon)
       .then(res => {
         alert('Pokémon cadastrado com sucesso!');
-        setName('');
-        setType('');
+        setCodigo('');
+        setNome('');
+        setTipoPrimario('');
+        setTipoSecundario('');
       })
       .catch(err => {
         console.error(err);
@@ -38,15 +44,33 @@ function PokemonForm() {
       <h2>Cadastrar Pokémon</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Nome:</label>
-          <input value={name} onChange={e => setName(e.target.value)} required />
+          <label>Código:</label>
+          <input
+            value={codigo}
+            onChange={e => setCodigo(e.target.value)}
+            required
+            type="number"
+          />
         </div>
         <div>
-          <label>Tipo:</label>
-          <select value={type} onChange={e => setType(e.target.value)} required>
+          <label>Nome:</label>
+          <input value={nome} onChange={e => setNome(e.target.value)} required />
+        </div>
+        <div>
+          <label>Tipo Primário:</label>
+          <select value={tipo_primario} onChange={e => setTipoPrimario(e.target.value)} required>
             <option value="">Selecione um tipo</option>
-            {types.map(t => (
-              <option key={t.id} value={t.id}>{t.name}</option>
+            {tipos.map(t => (
+              <option key={t.id} value={t.id}>{t.nome}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Tipo Secundário (opcional):</label>
+          <select value={tipo_secundario} onChange={e => setTipoSecundario(e.target.value)}>
+            <option value="">Nenhum</option>
+            {tipos.map(t => (
+              <option key={t.id} value={t.id}>{t.nome}</option>
             ))}
           </select>
         </div>

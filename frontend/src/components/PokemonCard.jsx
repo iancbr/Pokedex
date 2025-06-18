@@ -65,8 +65,8 @@ function PokemonCard({ pokemon, onDelete, onUpdate }) {
   return (
     <Card>
       <h3>{pokemon.nome}</h3>
-      <p>Tipo primário: {pokemon.tipo_primario}</p>
-      <p>Tipo secundário: {pokemon.tipo_secundario || "null"}</p>
+      <p>Tipo primário: {pokemon.tipo_primario_nome}</p>
+      <p>Tipo secundário: {pokemon.tipo_secundario_nome || "null"}</p>
 
       
       <Button onClick={() => setShowModal(true)}>Editar</Button>
