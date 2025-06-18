@@ -36,7 +36,8 @@ const ModalContent = styled.div`
 function PokemonCard({ pokemon, onDelete, onUpdate }) {
   const [showModal, setShowModal] = useState(false);
   const [nome, setNome] = useState(pokemon.nome);
-  const [tipo, setTipo] = useState(pokemon.tipo);
+  const [tipoPrimario, setTipoPrimario] = useState(pokemon.tipo_primario || "");
+  const [tipoSecundario, setTipoSecundario] = useState(pokemon.tipo_secundario || "");
 
   const handleDelete = async () => {
     try {
@@ -51,7 +52,8 @@ function PokemonCard({ pokemon, onDelete, onUpdate }) {
     try {
       const response = await axios.put(`http://localhost:8000/api/pokemons/${pokemon.id}/`, {
         nome,
-        tipo,
+        tipo_primario: tipoPrimario,
+        tipo_secundario: tipoSecundario || null,
       });
       onUpdate(response.data);
       setShowModal(false);
@@ -63,7 +65,10 @@ function PokemonCard({ pokemon, onDelete, onUpdate }) {
   return (
     <Card>
       <h3>{pokemon.nome}</h3>
-      <p>Tipo: {pokemon.tipo}</p>
+      <p>Tipo primário: {pokemon.tipo_primario}</p>
+      <p>Tipo secundário: {pokemon.tipo_secundario || "null"}</p>
+
+      
       <Button onClick={() => setShowModal(true)}>Editar</Button>
       <Button onClick={handleDelete}>Excluir</Button>
 
@@ -80,9 +85,16 @@ function PokemonCard({ pokemon, onDelete, onUpdate }) {
             />
             <input
               type="text"
-              value={tipo}
-              onChange={(e) => setTipo(e.target.value)}
-              placeholder="Tipo"
+              value={tipoPrimario}
+              onChange={(e) => setTipoPrimario(e.target.value)}
+              placeholder="Tipo primário"
+              style={{ marginBottom: "10px", width: "100%" }}
+            />
+            <input
+              type="text"
+              value={tipoSecundario}
+              onChange={(e) => setTipoSecundario(e.target.value)}
+              placeholder="Tipo secundário (opcional)"
               style={{ width: "100%" }}
             />
             <div style={{ marginTop: "12px" }}>
