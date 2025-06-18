@@ -5,6 +5,7 @@ class TipoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tipo
         fields = '__all__'
+        read_only_fields = ['codigo']
 
 class PokemonSerializer(serializers.ModelSerializer):
     tipo_primario_nome = serializers.CharField(source='tipo_primario.nome', read_only=True)
