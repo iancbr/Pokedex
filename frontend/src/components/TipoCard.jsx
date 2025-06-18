@@ -43,7 +43,12 @@ function TipoCard({ tipo, onDelete, onUpdate }) {
       await axios.delete(`http://localhost:8000/api/tipos/${tipo.id}/`);
       onDelete(tipo.id);
     } catch (error) {
-      console.error("Erro ao excluir tipo:", error);
+      if (error.response && error.response.data && error.response.data.erro) {
+        alert(error.response.data.erro);
+      } else {
+        console.error("Erro ao excluir tipo:", error);
+        alert("Erro ao excluir tipo.");
+      }
     }
   };
 

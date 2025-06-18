@@ -15,3 +15,7 @@ class PokemonSerializer(serializers.ModelSerializer):
         model = Pokemon
         fields = ['id', 'codigo', 'nome', 'tipo_primario', 'tipo_secundario', 'tipo_primario_nome', 'tipo_secundario_nome']
 
+    def validate(self, data):
+        if data.get('tipo_primario') and data.get('tipo_secundario') and data['tipo_primario'] == data['tipo_secundario']:
+            raise serializers.ValidationError("O tipo primário e secundário não podem ser iguais.")
+        return data

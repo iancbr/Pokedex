@@ -34,8 +34,13 @@ function PokemonForm() {
         setTipoSecundario('');
       })
       .catch(err => {
-        console.error(err);
-        alert('Erro ao cadastrar Pokémon');
+        if (err.response && err.response.data) {
+          const messages = Object.values(err.response.data).flat().join('\n');
+          alert(messages);
+        } else {
+          console.error(err);
+          alert('Erro ao cadastrar Pokémon');
+        }
       });
   };
 
