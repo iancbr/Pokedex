@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -36,8 +36,15 @@ const ModalContent = styled.div`
 function PokemonCard({ pokemon, onDelete, onUpdate }) {
   const [showModal, setShowModal] = useState(false);
   const [nome, setNome] = useState(pokemon.nome);
-  const [tipoPrimario, setTipoPrimario] = useState(pokemon.tipo_primario || "");
+  const [tipoPrimario, setTipoPrimario] = useState(pokemon.tipo_primario);
   const [tipoSecundario, setTipoSecundario] = useState(pokemon.tipo_secundario || "");
+  const [tipos, setTipos] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/tipos/")
+      .then(res => setTipos(res.data))
+      .catch(err => console.error("Erro ao carregar tipos:", err));
+  }, []);
 
   const handleDelete = async () => {
     try {
@@ -49,26 +56,34 @@ function PokemonCard({ pokemon, onDelete, onUpdate }) {
   };
 
   const handleUpdate = async () => {
+    if (tipoPrimario === tipoSecundario && tipoSecundario !== null) {
+      alert("Tipo primário e secundário não podem ser iguais.");
+      return;
+    }
+
     try {
       const response = await axios.put(`http://localhost:8000/api/pokemons/${pokemon.id}/`, {
+        codigo: pokemon.codigo,  // Preservando o código original
         nome,
         tipo_primario: tipoPrimario,
-        tipo_secundario: tipoSecundario || null,
+        tipo_secundario: tipoSecundario === "" ? null : tipoSecundario,
+        
       });
       onUpdate(response.data);
       setShowModal(false);
     } catch (error) {
-      console.error("Erro ao editar Pokémon:", error);
+      console.error("Erro ao editar Pokémon:", error.response?.data || error);
+      alert("Erro ao editar Pokémon");
     }
   };
 
   return (
     <Card>
-      <h3>{pokemon.nome}</h3>
+      <h3>{pokemon.codigo}-{pokemon.nome}</h3>
       <p>Tipo primário: {pokemon.tipo_primario_nome}</p>
       <p>Tipo secundário: {pokemon.tipo_secundario_nome || "null"}</p>
+      <p>Código: {pokemon.codigo}</p>
 
-      
       <Button onClick={() => setShowModal(true)}>Editar</Button>
       <Button onClick={handleDelete}>Excluir</Button>
 
@@ -76,6 +91,7 @@ function PokemonCard({ pokemon, onDelete, onUpdate }) {
         <ModalOverlay onClick={() => setShowModal(false)}>
           <ModalContent onClick={(e) => e.stopPropagation()}>
             <h2>Editar Pokémon</h2>
+
             <input
               type="text"
               value={nome}
@@ -83,20 +99,29 @@ function PokemonCard({ pokemon, onDelete, onUpdate }) {
               placeholder="Nome"
               style={{ marginBottom: "10px", width: "100%" }}
             />
-            <input
-              type="text"
+
+            <select
               value={tipoPrimario}
               onChange={(e) => setTipoPrimario(e.target.value)}
-              placeholder="Tipo primário"
               style={{ marginBottom: "10px", width: "100%" }}
-            />
-            <input
-              type="text"
-              value={tipoSecundario}
-              onChange={(e) => setTipoSecundario(e.target.value)}
-              placeholder="Tipo secundário (opcional)"
+            >
+              <option value="">Selecione o tipo primário</option>
+              {tipos.map((tipo) => (
+                <option key={tipo.id} value={tipo.id}>{tipo.nome}</option>
+              ))}
+            </select>
+
+            <select
+              value={tipoSecundario ?? ""}
+              onChange={(e) => setTipoSecundario(e.target.value=== "" ? null : Number(e.target.value))}
               style={{ width: "100%" }}
-            />
+            >
+              <option value="">Nenhum tipo secundário</option>
+              {tipos.map((tipo) => (
+                <option key={tipo.id} value={tipo.id}>{tipo.nome}</option>
+              ))}
+            </select>
+
             <div style={{ marginTop: "12px" }}>
               <Button onClick={handleUpdate}>Salvar</Button>
               <Button onClick={() => setShowModal(false)}>Cancelar</Button>

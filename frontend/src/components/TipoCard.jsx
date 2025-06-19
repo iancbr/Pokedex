@@ -8,7 +8,6 @@ const Card = styled.div`
   border-radius: 8px;
   margin: 8px;
   background-color: #f7f7f7;
-  position: relative;
 `;
 
 const Button = styled.button`
