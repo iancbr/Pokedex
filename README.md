@@ -29,7 +29,9 @@ cd Pokedex
 
 Além disso nessa versão sem Docker, é necessário rodar o front e o back em terminais distintos, ambos com venv ativo.
 Caso o VSCode tenha problema em reconhecer o venv, faça os seguintes passos:
-teclas ctrl+shift+p -> Python: Select Interpreter -> escolha versão Python 3...(venv)
+* teclas ctrl+shift+p 
+* Python: Select Interpreter
+* Escolha versão Python 3...(venv)
 
 ### Backend (Django)
 
