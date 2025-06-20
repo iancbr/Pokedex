@@ -95,6 +95,6 @@ docker compose up --build
 
 ## Vídeo de demonstração
 
-[https://youtu.be/0jAb4W8FGBQ](https://youtu.be/0jAb4W8FGBQ) 
+Link do vídeo: [https://youtu.be/0jAb4W8FGBQ](https://youtu.be/0jAb4W8FGBQ) 
 
 
