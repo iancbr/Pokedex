@@ -11,14 +11,8 @@ const Card = styled.div`
   border-radius: 16px;
   background-color:rgb(240, 248, 255);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease;  
   max-width: 300px;
-  width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   &:hover {
     transform: scale(1.02);
   }
