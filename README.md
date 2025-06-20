@@ -91,4 +91,10 @@ docker compose up --build
 * Os Tipos devem ser cadastrados antes de vincular aos Pokémons.
 * Todas as chamadas à API usam `http://localhost:8000/api/...`
 
+---
+
+## Vídeo de demonstração
+
+[https://youtu.be/0jAb4W8FGBQ](https://youtu.be/0jAb4W8FGBQ) 
+
 
