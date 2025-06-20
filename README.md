@@ -72,7 +72,7 @@ docker compose up --build
 ### 3. Acesse:
 
 * Frontend: [http://localhost:5173](http://localhost:5173)
-* Backend: [http://localhost:8000](http://localhost:8000)
+* Backend: [http://localhost:8000/api](http://localhost:8000/api)
 
 ---
 
@@ -90,5 +90,11 @@ docker compose up --build
 * O sistema é iniciado com os 150 Pokémons originais.
 * Os Tipos devem ser cadastrados antes de vincular aos Pokémons.
 * Todas as chamadas à API usam `http://localhost:8000/api/...`
+
+---
+
+## Vídeo de demonstração
+
+Link do vídeo: [https://youtu.be/0jAb4W8FGBQ](https://youtu.be/0jAb4W8FGBQ) 
 
 
