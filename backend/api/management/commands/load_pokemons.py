@@ -3,14 +3,14 @@ import json
 from django.core.management.base import BaseCommand
 from api.models import Tipo, Pokemon
 
-
+#comando para carregar os pokémons e tipos do arquivo JSON para o banco de dados
 class Command(BaseCommand):
     help = 'Carrega os pokémons e tipos do arquivo JSON para o banco de dados'
 
-    def handle(self, *args, **options):
-        caminho_arquivo = os.path.join('backend', 'dados_iniciais.json')
+    def handle(self, *args, **options): 
+        caminho_arquivo = os.path.join('backend', 'dados_iniciais.json') # Caminho do arquivo JSON com os dados iniciais
 
-        with open(caminho_arquivo, encoding='utf-8') as arquivo:
+        with open(caminho_arquivo, encoding='utf-8') as arquivo: 
             pokemons_data = json.load(arquivo)
 
         # Gerar dicionário de tipos únicos com código incremental
@@ -34,7 +34,9 @@ class Command(BaseCommand):
             codigo = p["codigo"]
             tipo1_nome = p["tipo_primario"].strip().title()
             tipo2_raw = p.get("tipo_secundario")
-            tipo2_nome = tipo2_raw.strip().title() if tipo2_raw else None
+            tipo2_nome = tipo2_raw.strip().title() if tipo2_raw else None # Verifica se tipo secundário existe
+            # Busca os tipos no banco de dados
+            # e cria o Pokémon se não existir
 
             tipo1 = Tipo.objects.get(nome=tipo1_nome)
             tipo2 = Tipo.objects.get(nome=tipo2_nome) if tipo2_nome else None

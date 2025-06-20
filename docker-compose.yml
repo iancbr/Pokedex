@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./Backend:/app
+    working_dir: /app
+    command: python manage.py runserver 0.0.0.0:8000
+    restart: always
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./Frontend:/app
+      - /app/node_modules
+    working_dir: /app
+    command: npm run dev
+    restart: always

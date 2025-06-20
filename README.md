@@ -23,9 +23,9 @@ cd Pokedex
 ```
 ## Requisitos para rodar sem Docker
 
-* Python 3.10+
-* Node.js 18+
-* npm 9+
+* Python 3.10+ (testado com 3.13.0)
+* Node.js 18+ (testado com v22.14.0)
+* npm 9+ (testado com 10.9.2)
 
 
 ### Backend (Django)
