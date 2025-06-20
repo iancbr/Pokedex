@@ -27,9 +27,9 @@ cd Pokedex
 * Node.js 18+ (testado com v22.14.0)
 * npm 9+ (testado com 10.9.2)
 
-Além disso nessa versão sem Docker, é necessário rodar o front e o back em terminais distintos. Ambos com venv ativo
-caso o VSCode tenha problema em reconhecer o venv , use as teclas ctrl+shift+p -> Python: Select Interpreter -> escolha versão
-Python 3... (venv)
+Além disso nessa versão sem Docker, é necessário rodar o front e o back em terminais distintos, ambos com venv ativo.
+Caso o VSCode tenha problema em reconhecer o venv, faça os seguintes passos:
+teclas ctrl+shift+p -> Python: Select Interpreter -> escolha versão Python 3...(venv)
 
 ### Backend (Django)
 
