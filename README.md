@@ -27,6 +27,11 @@ cd Pokedex
 * Node.js 18+ (testado com v22.14.0)
 * npm 9+ (testado com 10.9.2)
 
+Além disso nessa versão sem Docker, é necessário rodar o front e o back em terminais distintos, ambos com venv ativo.
+Caso o VSCode tenha problema em reconhecer o venv, faça os seguintes passos:
+* Ctrl+Shift+p 
+* Python: Select Interpreter
+* Escolha versão Python 3...(venv)
 
 ### Backend (Django)
 
@@ -35,7 +40,7 @@ cd backend
 python -m venv venv
 source venv/bin/activate #Linux
 venv\Scripts\activate # Windows
-pip install -r ../requirements.txt
+pip install -r requirements.txt
 python manage.py runserver
 ```
 
@@ -45,7 +50,7 @@ python manage.py runserver
 ### Frontend (React)
 
 ```bash
-cd frontend
+cd ..\frontend
 npm install
 npm run dev
 ```
