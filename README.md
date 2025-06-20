@@ -88,7 +88,6 @@ docker compose up --build
 ## Observações
 
 * O sistema é iniciado com os 150 Pokémons originais.
-* Os Tipos devem ser cadastrados antes de vincular aos Pokémons.
 * Todas as chamadas à API usam `http://localhost:8000/api/...`
 
 ---
